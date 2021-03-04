@@ -1,14 +1,20 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
-import http from 'http';
-import https from 'https';
-import HttpHeaders from 'http';
+import { Connect, Query } from '../config/mysql';
 
 const router = express.Router();
 
-router.post('/budgets', async (request: Request, response: Response) => {
-  let headers = '';
-  response.send(https.get('https://api.youneedabudget.com/v1/budgets', {headers: }));
+router.get('/budgets', async (request: Request, response: Response) => {
+  const connection = await Connect();
+  const user = await Query(connection, 'SELECT * FROM user;');
+  const account = await Query(connection, 'SELECT * FROM account;');
+  const category = await Query(connection, 'SELECT * FROM category;');
+  const transaction = await Query(connection, 'SELECT * FROM transaction;');
+  const subtransaction = await Query(
+    connection,
+    'SELECT * FROM subtransaction;'
+  );
+  response.send({ user, account, category, transaction, subtransaction });
 });
 
 export default router;
