@@ -2,8 +2,8 @@ import * as bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
 import express from 'express';
 import { Request, Response } from 'express';
-import { Connect, Query } from './config/mysql';
-import budgets from './controllers/Budgets';
+import test from './controllers/Test';
+import user from './controllers/User';
 
 const app = express();
 dotenv.config();
@@ -27,7 +27,7 @@ function loggerMiddleware(
 }
 app.use(loggerMiddleware);
 
-app.use('/', budgets);
+app.use('/', test, user);
 
 // app.all('*', (request, response) => {
 //   response.sendStatus(404);

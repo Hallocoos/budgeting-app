@@ -1,4 +1,4 @@
-import { Connect, Query } from '../mysql';
+import { Connect, Query } from '../databaseConnection';
 
 const createDatabase = async () => {
   let connection = await Connect();
