@@ -1,56 +1,65 @@
-exports.up = function (knex, Promise) {
+exports.up = async function (knex, Promise) {
   return knex.schema
     .createTable('user', function (table) {
-      table.increments('id').primary()
-      table.string('username').notNullable()
-      table.string('password').notNullable()
+      table.increments('id').primary();
+      table.string('username').notNullable();
+      table.string('password').notNullable();
     })
     .createTable('account', function (table) {
-      table.increments('id').primary()
-      
-      // 'id INT NOT NULL AUTO_INCREMENT,' +
-      // 'name VARCHAR(100) NOT NULL,' +
-      // 'PRIMARY KEY (id)' +
+      table.increments('id').primary();
+      table.integer('userId').unsigned().references('id').inTable('user');
+      table.string('name').notNullable();
+    })
+    .createTable('collection', function (table) {
+      table.increments('id').primary();
+      table.integer('userId').unsigned().references('id').inTable('user');
+      table.string('name').notNullable();
     })
     .createTable('category', function (table) {
-      table.increments('id').primary()
-      
-      // 'user_id INT,' +
-      // 'PRIMARY KEY (id),' +
-      // 'CONSTRAINT FK_UserCategory FOREIGN KEY (user_id) REFERENCES user(id)' +
-    })
-    .createTable('subcategory', function (table) {
-      table.increments('id').primary()
+      table.increments('id').primary();
+      table.integer('userId').unsigned().references('id').inTable('user');
+      table.string('name').notNullable();
+      table
+        .integer('collectionId')
+        .unsigned()
+        .references('id')
+        .inTable('collection');
     })
     .createTable('transaction', function (table) {
-      table.increments('id').primary()
-      
-      // 'user_id INT,' +
-      // 'account_id INT,' +
-      // 'total DECIMAL(13,2),' +
-      // 'date DATETIME DEFAULT NOW(),' +
-      // 'PRIMARY KEY (id),' +
-      // 'CONSTRAINT FK_UserTransaction FOREIGN KEY (user_id) REFERENCES user(id),' +
-      // 'CONSTRAINT FK_UserAccount FOREIGN KEY (account_id) REFERENCES account(id)' +
+      table.increments('id').primary();
+      table.integer('accountId').unsigned().references('id').inTable('account');
+      table.integer('userId').unsigned().references('id').inTable('user');
+      table.integer('amountTotal').notNullable();
+      table.timestamp('date').defaultTo(knex.fn.now());
+      table
+        .integer('collectionId')
+        .unsigned()
+        .references('id')
+        .inTable('collection');
     })
     .createTable('subtransaction', function (table) {
-      table.increments('id').primary()
-      
-      // 'transaction_id INT,' +
-      // 'category_id INT,' +
-      // 'amount DECIMAL(13,2),' +
-      // 'PRIMARY KEY (id),' +
-      // 'CONSTRAINT FK_SubTransaction FOREIGN KEY (transaction_id) REFERENCES transaction(id),' +
-      // 'CONSTRAINT FK_CategoryTransaction FOREIGN KEY (category_id) REFERENCES category(id)' +
-    })
+      table.increments('id').primary();
+      table.double('amount').notNullable();
+      table
+        .integer('categoryId')
+        .unsigned()
+        .references('id')
+        .inTable('category');
+      table
+        .integer('transactionId')
+        .unsigned()
+        .references('id')
+        .inTable('transaction');
+    });
 };
 
 exports.down = function (knex, Promise) {
   return knex.schema
-  .dropTable('account')
-  .dropTable('transaction')
-  .dropTable('subtransaction')
-  .dropTable('category')
-  .dropTable('subcategory')
-  .dropTable('users').then();
+    .dropTable('subtransaction')
+    .dropTable('transaction')
+    .dropTable('category')
+    .dropTable('collection')
+    .dropTable('account')
+    .dropTable('user')
+    .then();
 };

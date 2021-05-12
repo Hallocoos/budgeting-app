@@ -22,12 +22,20 @@ router.post('/test', async (request: Request, response: Response) => {
   const user = await Query(connection, 'SELECT * FROM user;');
   const account = await Query(connection, 'SELECT * FROM account;');
   const category = await Query(connection, 'SELECT * FROM category;');
+  // const subcategory = await Query(connection, 'SELECT * FROM subcategory;');
   const transaction = await Query(connection, 'SELECT * FROM transaction;');
   const subtransaction = await Query(
     connection,
     'SELECT * FROM subtransaction;'
   );
-  response.send({ user, account, category, transaction, subtransaction });
+  response.send({
+    user,
+    account,
+    category,
+    // subcategory,
+    transaction,
+    subtransaction,
+  });
 });
 
 export default router;

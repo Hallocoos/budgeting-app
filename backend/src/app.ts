@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import { Request, Response } from 'express';
 import test from './controllers/Test';
-import user from './controllers/User';
+import user from './routes/UserRoutes';
 
 const app = express();
 dotenv.config();

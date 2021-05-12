@@ -12,12 +12,13 @@ async function hash(pssword) {
 }
 
 exports.seed = function (knex, Promise) {
-  return knex('user')
+  return knex('subtransaction')
     .del()
     .then(async function () {
-      return knex('user').insert({
-        username: 'Hallocoos',
-        password: '12345678',
+      return knex('subtransaction').insert({
+        amount: 1,
+        categoryId: 1,
+        transactionId: 1,
       });
     });
 };

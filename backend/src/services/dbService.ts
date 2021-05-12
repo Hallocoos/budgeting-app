@@ -1,4 +1,6 @@
-import * as knex from '../../database/knex';
+const environment = process.env.NODE_ENV || 'development';
+const config = require('../../knexfile.js')[environment];
+const knex = require('knex')(config);
 
 export function knexSelectAll(targetTable: string) {
   return knex
@@ -11,8 +13,8 @@ export function knexSelectAll(targetTable: string) {
 }
 
 export function knexSelectByColumn(
-  columnName: string,
   columnValue: string,
+  columnName: string,
   targetTable: string
 ) {
   return knex
@@ -33,7 +35,7 @@ export function knexInsert(body, targetTable) {
     });
 }
 
-export function knexUpdateById(body, id, targetTable) {
+export function knexUpdateById(id, body, targetTable) {
   return knex(targetTable)
     .where('id', id)
     .update(body)
