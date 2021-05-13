@@ -30,9 +30,9 @@ app.use(loggerMiddleware);
 
 app.use('/', test, user);
 
-// app.all('*', (request, response) => {
-//   response.sendStatus(404);
-// });
+app.all('*', (request, response) => {
+  response.sendStatus(404);
+});
 
 const start = async () => {
   const port = process.env.PORT || 3000;
