@@ -41,14 +41,14 @@ const start = async () => {
       info(`APP.JS`, `Server is listening on port ${port}`);
     });
   } catch (err) {
-    error(`APP.JS`, `ERROR: ${err}`);
+    error(`APP.JS`, err);
     process.exit(1);
   }
 };
 
 if (!module.parent) {
   start().catch((err) => {
-    error(`APP.JS`, `ERROR: ${err}`);
+    error(`APP.JS`, err);
     process.exit(1);
   });
 }
