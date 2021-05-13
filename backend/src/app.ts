@@ -4,6 +4,7 @@ import express from 'express';
 import { Request, Response } from 'express';
 import test from './routes/Test';
 import user from './routes/UserRoutes';
+import { info, error } from './services/logging';
 
 const app = express();
 dotenv.config();
@@ -21,7 +22,7 @@ function loggerMiddleware(
 ): void {
   if (request.method !== 'HEAD') {
     const date = new Date().toISOString();
-    console.info(`${date} - ${request.method} ${request.path}`);
+    info(`APP.JS`, `${request.method} ${request.path} ${JSON.stringify(request.body)}`);
   }
   next();
 }
@@ -37,17 +38,17 @@ const start = async () => {
   const port = process.env.PORT || 3000;
   try {
     app.listen(port, () => {
-      console.log('Server is listening on port %d', port);
+      info(`APP.JS`, `Server is listening on port ${port}`);
     });
   } catch (err) {
-    console.log(err);
+    error(`APP.JS`, `ERROR: ${err}`);
     process.exit(1);
   }
 };
 
 if (!module.parent) {
   start().catch((err) => {
-    console.log(err);
+    error(`APP.JS`, `ERROR: ${err}`);
     process.exit(1);
   });
 }
