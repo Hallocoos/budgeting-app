@@ -2,9 +2,10 @@ import * as bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
 import express from 'express';
 import { Request, Response } from 'express';
+import { info, error } from './services/logging';
 import test from './routes/Test';
 import user from './routes/UserRoutes';
-import { info, error } from './services/logging';
+import transaction from './routes/TransactionRoutes';
 
 const app = express();
 dotenv.config();
@@ -28,7 +29,10 @@ function loggerMiddleware(
 }
 app.use(loggerMiddleware);
 
-app.use('/', test, user);
+const userRountes = user;
+const transactionRountes = transaction;
+
+app.use('/', test, userRountes, transactionRountes);
 
 app.all('*', (request, response) => {
   response.sendStatus(404);
@@ -38,7 +42,7 @@ const start = async () => {
   const port = process.env.PORT || 3000;
   try {
     app.listen(port, () => {
-      info(`APP.JS`, `Server is listening on port ${port}`);
+      info(`APP.JS`, `Server is listening on port ${port} - localhost:${port}/`);
     });
   } catch (err) {
     error(`APP.JS`, err);

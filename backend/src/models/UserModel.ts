@@ -1,7 +1,6 @@
 import {
   knexSelectByColumn,
   knexInsert,
-  knexSelectAll,
   knexUpdateById,
   knexDeleteById,
 } from '../services/dbService';
