@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Login from '../../components/login/login';
 import Register from '../../components/register/register';
 
-function Home(props: any) {
+function Home() {
 
   // USING ROUTES
   // const history = useHistory();
@@ -29,7 +29,7 @@ function Home(props: any) {
             <Register />
           </div>
       }
-
+      {/* USING ROUTES */}
       {/* Log in here: <button onClick={toLogin}>Log in</button><br/>
       Don't have an account? Register here: <button onClick={toRegister}>Register</button> */}
     </div>
