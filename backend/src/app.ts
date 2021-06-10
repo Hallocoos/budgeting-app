@@ -3,9 +3,10 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import { Request, Response } from 'express';
 import { info, error } from './services/logging';
-import test from './routes/Test';
 import user from './routes/UserRoutes';
 import transaction from './routes/TransactionRoutes';
+import category from './routes/CategoryRoutes';
+import subtransaction from './routes/SubtransactionRountes'
 
 const app = express();
 dotenv.config();
@@ -31,8 +32,10 @@ app.use(loggerMiddleware);
 
 const userRountes = user;
 const transactionRountes = transaction;
+const categoryRountes = category;
+const subtransactionRountes = subtransaction;
 
-app.use('/', test, userRountes, transactionRountes);
+app.use('/', userRountes, transactionRountes, categoryRountes, subtransactionRountes);
 
 app.all('*', (request, response) => {
   response.sendStatus(404);

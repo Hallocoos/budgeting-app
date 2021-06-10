@@ -50,6 +50,15 @@ exports.up = async function (knex, Promise) {
         .unsigned()
         .references('id')
         .inTable('transaction');
+    })
+    .createTable('subcategory', function (table) {
+      table.increments('id').primary();
+      table.string('name').notNullable();
+      table
+        .integer('categoryId')
+        .unsigned()
+        .references('id')
+        .inTable('category');
     });
 };
 
