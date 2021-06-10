@@ -2,3 +2,7 @@
 backend/node_modules/
 frontend/node_modules/
 settings.json
+backend/dist/
+frontend/build/
+frontend/.pnp
+.pnp.js
