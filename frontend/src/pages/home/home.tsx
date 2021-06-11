@@ -13,6 +13,7 @@ function Home() {
   // USING CONDITIONAL RENDERING
   const [login, setLogin] = useState(true);
   const [inputFields, setInputFields] = useState({
+    name: '',
     email: '',
     password: ''
   } as any)
@@ -27,7 +28,12 @@ function Home() {
   const onSubmit = (event: any) => {
     event.preventDefault();
     console.log(inputFields);
+    clearInputs();
     // subscribe to service? -> auth -> login
+  }
+
+  const clearInputs = () => {
+    setInputFields({name: '',email: '',password: ''});
   }
 
   const switchForms = () => {
@@ -37,7 +43,7 @@ function Home() {
                    </div>
                  : <div>
                     <p>Register</p>
-                    <Register />
+                    <Register sendDataToParent={sendDataToParent} />
                    </div>
   }
 
@@ -46,7 +52,7 @@ function Home() {
       <h1>Welcome to Home page...</h1>
       <hr />
       {login ? "Don't have an account? " : "Already have an account? "}
-      <button onClick={()=>setLogin(!login)}>
+      <button onClick={()=>{setLogin(!login); clearInputs();}}>
       {login ? "Register" : "Log in"}</button>
       <form onSubmit={e => onSubmit(e)}>
         { switchForms() }
