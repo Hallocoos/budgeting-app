@@ -6,7 +6,9 @@ import { info, error } from './services/logging';
 import user from './routes/UserRoutes';
 import transaction from './routes/TransactionRoutes';
 import category from './routes/CategoryRoutes';
-import subtransaction from './routes/SubtransactionRountes'
+import subtransaction from './routes/SubtransactionRountes';
+// import subcategory from './routes/SubcategoryRoutes';
+import collection from './routes/CollectionRoutes';
 
 const app = express();
 dotenv.config();
@@ -30,12 +32,9 @@ function loggerMiddleware(
 }
 app.use(loggerMiddleware);
 
-const userRountes = user;
-const transactionRountes = transaction;
-const categoryRountes = category;
-const subtransactionRountes = subtransaction;
+// app.use(authorization());
 
-app.use('/', userRountes, transactionRountes, categoryRountes, subtransactionRountes);
+app.use('/', user, transaction, category, subtransaction /*, subcategory*/, collection);
 
 app.all('*', (request, response) => {
   response.sendStatus(404);

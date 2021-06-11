@@ -9,22 +9,20 @@ import {
 
 const router = express.Router();
 
-router.post(
-  '/selectUserByColumn',
-  async (request: Request, response: Response) => {
-    // Validation
-    // Action
-    const result = await selectUserByColumn(
-      request.body.columnValue,
-      request.body.columnName
-    );
-    // Verification
-    // Response
-    response.send({ result });
-  }
+router.get('/user', async (request: Request, response: Response) => {
+  // Validation
+  // Action
+  const result = await selectUserByColumn(
+    request.body.columnValue,
+    request.body.columnName
+  );
+  // Verification
+  // Response
+  response.send({ result });
+}
 );
 
-router.post('/createUser', async (request: Request, response: Response) => {
+router.post('/user', async (request: Request, response: Response) => {
   // Validation
   // Action
   const result = await createUser(request.body.username, request.body.password);
@@ -33,7 +31,7 @@ router.post('/createUser', async (request: Request, response: Response) => {
   response.send({ result });
 });
 
-router.post('/updateUser', async (request: Request, response: Response) => {
+router.put('/user', async (request: Request, response: Response) => {
   // Validation
   // Action
   const result = await updateUser(request.body.userId, request.body.changes);
@@ -42,7 +40,7 @@ router.post('/updateUser', async (request: Request, response: Response) => {
   response.send({ result });
 });
 
-router.post('/deleteUser', async (request: Request, response: Response) => {
+router.delete('/user', async (request: Request, response: Response) => {
   // Validation
   // Action
   const result = await deleteUser(request.body.userId);

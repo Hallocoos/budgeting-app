@@ -51,21 +51,22 @@ exports.up = async function (knex, Promise) {
         .references('id')
         .inTable('transaction');
     })
-    .createTable('subcategory', function (table) {
-      table.increments('id').primary();
-      table.string('name').notNullable();
-      table
-        .integer('categoryId')
-        .unsigned()
-        .references('id')
-        .inTable('category');
-    });
+  // .createTable('subcategory', function (table) {
+  //   table.increments('id').primary();
+  //   table.string('name').notNullable();
+  //   table
+  //     .integer('categoryId')
+  //     .unsigned()
+  //     .references('id')
+  //     .inTable('category');
+  // });
 };
 
 exports.down = function (knex, Promise) {
   return knex.schema
     .dropTable('subtransaction')
     .dropTable('transaction')
+    // .dropTable('subcategory')
     .dropTable('category')
     .dropTable('collection')
     .dropTable('account')
