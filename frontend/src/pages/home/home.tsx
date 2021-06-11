@@ -3,6 +3,16 @@ import React, { useState } from 'react';
 import Login from '../../components/login/login';
 import Register from '../../components/register/register';
 
+async function loginUser(credentials: any) {
+  return fetch('http://localhost:3001/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(credentials)
+  }).then(data => data.json())
+}
+
 function Home() {
 
   // USING ROUTES
@@ -12,11 +22,12 @@ function Home() {
 
   // USING CONDITIONAL RENDERING
   const [login, setLogin] = useState(true);
+  const [userToken, setToken] = useState();
   const [inputFields, setInputFields] = useState({
-    name: '',
+    username: '',
     email: '',
     password: ''
-  } as any)
+  } as any);
 
   const sendDataToParent = (data: any) => {
     setInputFields({
@@ -25,10 +36,21 @@ function Home() {
     });
   }
 
-  const onSubmit = (event: any) => {
+  const onSubmit = async (event: any) => {
     event.preventDefault();
-    console.log(inputFields);
+    if (inputFields.username.length === 0) {
+
+      console.log(inputFields);
+      const token = await loginUser({
+        inputFields
+      });
+      setToken(token);
+      console.log(userToken);
+    } else {
+      console.log("not yet implemented")
+    }
     clearInputs();
+
     // subscribe to service? -> auth -> login
   }
 
