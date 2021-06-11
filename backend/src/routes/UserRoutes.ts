@@ -19,8 +19,7 @@ router.get('/user', async (request: Request, response: Response) => {
   // Verification
   // Response
   response.send({ result });
-}
-);
+});
 
 router.post('/user', async (request: Request, response: Response) => {
   // Validation

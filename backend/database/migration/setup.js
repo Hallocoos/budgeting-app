@@ -4,6 +4,7 @@ exports.up = async function (knex, Promise) {
       table.increments('id').primary();
       table.string('username').notNullable();
       table.string('password').notNullable();
+      table.string('email').notNullable();
     })
     .createTable('account', function (table) {
       table.increments('id').primary();

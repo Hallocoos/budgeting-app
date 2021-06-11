@@ -18,6 +18,7 @@ exports.seed = function (knex, Promise) {
       return knex('user').insert({
         username: 'Hallocoos',
         password: await hash('12345678'),
+        email: 'asdf@asdf.com',
       });
     });
 };

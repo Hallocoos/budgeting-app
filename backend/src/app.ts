@@ -9,6 +9,9 @@ import category from './routes/CategoryRoutes';
 import subtransaction from './routes/SubtransactionRountes';
 // import subcategory from './routes/SubcategoryRoutes';
 import collection from './routes/CollectionRoutes';
+import guest from './routes/GuestRoutes';
+import { verifyToken, Roles } from './services/jwt';
+
 
 const app = express();
 dotenv.config();
@@ -34,7 +37,7 @@ app.use(loggerMiddleware);
 
 // app.use(authorization());
 
-app.use('/', user, transaction, category, subtransaction /*, subcategory*/, collection);
+app.use('/', guest, verifyToken(Roles.User), user, transaction, category, subtransaction /*, subcategory*/, collection);
 
 app.all('*', (request, response) => {
   response.sendStatus(404);
