@@ -11,7 +11,7 @@ function Register({sendDataToParent}: any) {
     <div className="Register">
         <label>
           Name:
-          <input onChange={e => inputHandler(e)} type="text" name="name" />
+          <input onChange={e => inputHandler(e)} type="text" name="username" />
         </label>
         <label>
           E-Mail:
