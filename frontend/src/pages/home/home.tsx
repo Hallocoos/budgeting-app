@@ -11,29 +11,52 @@ function Home() {
   // const toRegister = () => history.push('/register');
 
   // USING CONDITIONAL RENDERING
-  let [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(true);
+  const [inputFields, setInputFields] = useState({
+    email: '',
+    password: ''
+  } as any)
+
+  const sendDataToParent = (data: any) => {
+    setInputFields({
+      ...inputFields,
+      [data.target.name]: data.target.value
+    });
+  }
+
+  const onSubmit = (event: any) => {
+    event.preventDefault();
+    console.log(inputFields);
+    // subscribe to service? -> auth -> login
+  }
+
+  const switchForms = () => {
+    return login ? <div>
+                    <p>Log in:</p>
+                    <Login sendDataToParent={sendDataToParent} />
+                   </div>
+                 : <div>
+                    <p>Register</p>
+                    <Register />
+                   </div>
+  }
 
   return (
     <div className="Home">
       <h1>Welcome to Home page...</h1>
       <hr />
-      {login ? "Don't have an account? " : "Already have an account? "}<button onClick={()=>setLogin(!login)}>{login ? "Register" : "Log in"}</button>
-      {
-        login ?
-          <div>
-            <p>Log in:</p>
-            <Login />
-          </div> :
-          <div>
-            <p>Register</p>
-            <Register />
-          </div>
-      }
+      {login ? "Don't have an account? " : "Already have an account? "}
+      <button onClick={()=>setLogin(!login)}>
+      {login ? "Register" : "Log in"}</button>
+      <form onSubmit={e => onSubmit(e)}>
+        { switchForms() }
+      </form>
       {/* USING ROUTES */}
       {/* Log in here: <button onClick={toLogin}>Log in</button><br/>
       Don't have an account? Register here: <button onClick={toRegister}>Register</button> */}
     </div>
   );
 }
+
 
 export default Home;
