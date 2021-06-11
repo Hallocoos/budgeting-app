@@ -10,7 +10,17 @@ async function loginUser(credentials: any) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(credentials)
-  }).then(data => data.json())
+  }).then(async data => await data.json())
+}
+
+async function registerUser(credentials: any) {
+  return fetch('http://localhost:3001/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(credentials)
+  }).then(async data => await data.json())
 }
 
 function Home() {
@@ -22,7 +32,7 @@ function Home() {
 
   // USING CONDITIONAL RENDERING
   const [login, setLogin] = useState(true);
-  const [userToken, setToken] = useState();
+  const [userToken, setUserToken] = useState();
   const [inputFields, setInputFields] = useState({
     username: '',
     email: '',
@@ -38,17 +48,15 @@ function Home() {
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
+    let token: any;
     if (inputFields.username.length === 0) {
-
       console.log(inputFields);
-      const token = await loginUser({
-        inputFields
-      });
-      setToken(token);
-      console.log(userToken);
+      token = await loginUser(inputFields);
     } else {
       console.log("not yet implemented")
+      token = await registerUser(inputFields)
     }
+    setUserToken(token);
     clearInputs();
 
     // subscribe to service? -> auth -> login
@@ -79,6 +87,7 @@ function Home() {
       <form onSubmit={e => onSubmit(e)}>
         { switchForms() }
       </form>
+      {userToken}
       {/* USING ROUTES */}
       {/* Log in here: <button onClick={toLogin}>Log in</button><br/>
       Don't have an account? Register here: <button onClick={toRegister}>Register</button> */}
