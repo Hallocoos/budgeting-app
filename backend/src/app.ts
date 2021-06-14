@@ -11,7 +11,7 @@ import subtransaction from './routes/SubtransactionRountes';
 import collection from './routes/CollectionRoutes';
 import guest from './routes/GuestRoutes';
 import { verifyToken, Roles } from './services/jwt';
-
+import cors from 'cors';
 
 const app = express();
 dotenv.config();
@@ -21,6 +21,10 @@ app.set('view engine', 'html');
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(cors({
+  origin: '*',
+  optionsSuccessStatus: 200
+}));
 
 function loggerMiddleware(
   request: Request,
@@ -35,9 +39,7 @@ function loggerMiddleware(
 }
 app.use(loggerMiddleware);
 
-// app.use(authorization());
-
-app.use('/', guest, verifyToken(Roles.User), user, transaction, category, subtransaction /*, subcategory*/, collection);
+app.use('/', guest, /* verifyToken(Roles.User), */user, transaction, category, subtransaction /*, subcategory*/, collection);
 
 app.all('*', (request, response) => {
   response.sendStatus(404);

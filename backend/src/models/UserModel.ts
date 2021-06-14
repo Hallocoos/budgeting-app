@@ -4,6 +4,7 @@ import {
   knexUpdateById,
   knexDeleteById,
 } from '../services/dbService';
+import { hash } from '../services/passwordHashing';
 
 class User {
   id: string;
@@ -22,8 +23,9 @@ export async function selectUserByColumn(
   return await knexSelectByColumn(columnValue, columnName, 'user');
 }
 
-export async function createUser(username, password): Promise<User> {
-  return await knexInsert({ username, password }, 'user');
+export async function createUser(userData): Promise<User> {
+  userData.password = await hash(userData.password);
+  return await knexInsert({ ...userData }, 'user');
 }
 
 export async function updateUser(userId, changes): Promise<User> {
