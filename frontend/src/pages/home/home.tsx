@@ -47,13 +47,16 @@ function Home() {
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
+
     let token: any;
+
     if (inputFields.username === undefined) {
       console.log('inputfields: ',inputFields);
       token = await loginUser(inputFields);
     } else {
       token = await registerUser(inputFields);
     }
+
     // TODO: handle error
     if (token !== undefined)
       setUserToken(token);
