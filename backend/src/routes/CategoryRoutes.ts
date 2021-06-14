@@ -16,6 +16,7 @@ router.get('/category', async (request: Request, response: Response) => {
         request.body.columnValue,
         request.body.columnName
     );
+    console.log(result);
     // Verification
     // Response
     response.send({ result });
@@ -33,7 +34,7 @@ router.post('/category', async (request: Request, response: Response) => {
 router.put('/category', async (request: Request, response: Response) => {
     // Validation
     // Action
-    const result = await updateTransaction(request.body.transactionId, request.body.changes);
+    const result = await updateCategory(request.body.categoryId, request.body.changes);
     // Verification
     // Response
     response.send({ result });
@@ -42,7 +43,7 @@ router.put('/category', async (request: Request, response: Response) => {
 router.delete('/category', async (request: Request, response: Response) => {
     // Validation
     // Action
-    const result = await deleteTransaction(request.body.transactionId);
+    const result = await deleteCategory(request.body.categoryId);
     // Verification
     // Response
     response.send({ result });
