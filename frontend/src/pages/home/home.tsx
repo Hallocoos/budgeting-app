@@ -11,7 +11,7 @@ async function loginUser(credentials: any) {
     },
     body: JSON.stringify(credentials)
   }).then(async data => await data.json())
-    .catch(err => console.log('Error: ',err));
+    .catch(err => console.log('Error: ', err));
 }
 
 async function registerUser(credentials: any) {
@@ -22,7 +22,7 @@ async function registerUser(credentials: any) {
     },
     body: JSON.stringify(credentials)
   }).then(async data => await data.json())
-    .catch(err => console.log('Error: ',err));
+    .catch(err => console.log('Error: ', err));
 }
 
 function Home() {
