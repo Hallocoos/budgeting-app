@@ -2,28 +2,29 @@ import React, { useState } from 'react';
 // import { useHistory } from 'react-router-dom';
 import Login from '../../components/login/login';
 import Register from '../../components/register/register';
+import{ loginUser, registerUser } from '../../services/account.service';
 
-async function loginUser(credentials: any) {
-  return fetch('http://localhost:3001/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  }).then(async data => await data.json())
-    .catch(err => console.log('Error: ', err));
-}
+// async function loginUser(credentials: any) {
+//   return fetch('http://localhost:3001/login', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(credentials)
+//   }).then(async data => await data.json())
+//     .catch(err => console.log('Error: ', err));
+// }
 
-async function registerUser(credentials: any) {
-  return fetch('http://localhost:3001/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(credentials)
-  }).then(async data => await data.json())
-    .catch(err => console.log('Error: ', err));
-}
+// async function registerUser(credentials: any) {
+//   return fetch('http://localhost:3001/register', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(credentials)
+//   }).then(async data => await data.json())
+//     .catch(err => console.log('Error: ', err));
+// }
 
 function Home() {
 
