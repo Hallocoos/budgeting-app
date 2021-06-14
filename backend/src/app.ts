@@ -3,9 +3,15 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import { Request, Response } from 'express';
 import { info, error } from './services/logging';
-import test from './routes/Test';
 import user from './routes/UserRoutes';
 import transaction from './routes/TransactionRoutes';
+import category from './routes/CategoryRoutes';
+import subtransaction from './routes/SubtransactionRountes';
+// import subcategory from './routes/SubcategoryRoutes';
+import collection from './routes/CollectionRoutes';
+import guest from './routes/GuestRoutes';
+import { verifyToken, Roles } from './services/jwt';
+
 
 const app = express();
 dotenv.config();
@@ -29,10 +35,9 @@ function loggerMiddleware(
 }
 app.use(loggerMiddleware);
 
-const userRountes = user;
-const transactionRountes = transaction;
+// app.use(authorization());
 
-app.use('/', test, userRountes, transactionRountes);
+app.use('/', guest, verifyToken(Roles.User), user, transaction, category, subtransaction /*, subcategory*/, collection);
 
 app.all('*', (request, response) => {
   response.sendStatus(404);
