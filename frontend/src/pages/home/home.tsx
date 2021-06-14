@@ -11,6 +11,7 @@ async function loginUser(credentials: any) {
     },
     body: JSON.stringify(credentials)
   }).then(async data => await data.json())
+    .catch(err => console.log('Error: ',err));
 }
 
 async function registerUser(credentials: any) {
@@ -21,6 +22,7 @@ async function registerUser(credentials: any) {
     },
     body: JSON.stringify(credentials)
   }).then(async data => await data.json())
+    .catch(err => console.log('Error: ',err));
 }
 
 function Home() {
@@ -32,12 +34,8 @@ function Home() {
 
   // USING CONDITIONAL RENDERING
   const [login, setLogin] = useState(true);
-  const [userToken, setUserToken] = useState();
-  const [inputFields, setInputFields] = useState({
-    username: '',
-    email: '',
-    password: ''
-  } as any);
+  const [userToken, setUserToken] = useState({token: "not yet set"});
+  const [inputFields, setInputFields] = useState({} as any);
 
   const sendDataToParent = (data: any) => {
     setInputFields({
@@ -49,21 +47,24 @@ function Home() {
   const onSubmit = async (event: any) => {
     event.preventDefault();
     let token: any;
-    if (inputFields.username.length === 0) {
-      console.log(inputFields);
+    if (inputFields.username === undefined) {
+      console.log('inputfields: ',inputFields);
       token = await loginUser(inputFields);
     } else {
-      console.log("not yet implemented")
-      token = await registerUser(inputFields)
+      token = await registerUser(inputFields);
     }
-    setUserToken(token);
-    clearInputs();
+    // TODO: handle error
+    if (token !== undefined)
+      setUserToken(token);
+    else
+      console.error("something went horribly wrong...")
+    // clearInputs();
 
     // subscribe to service? -> auth -> login
   }
 
   const clearInputs = () => {
-    setInputFields({name: '',email: '',password: ''});
+    setInputFields({});
   }
 
   const switchForms = () => {
@@ -87,7 +88,7 @@ function Home() {
       <form onSubmit={e => onSubmit(e)}>
         { switchForms() }
       </form>
-      {userToken}
+      JWT: {userToken.token}
       {/* USING ROUTES */}
       {/* Log in here: <button onClick={toLogin}>Log in</button><br/>
       Don't have an account? Register here: <button onClick={toRegister}>Register</button> */}
