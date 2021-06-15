@@ -24,7 +24,7 @@ router.get('/user', async (request: Request, response: Response) => {
 router.post('/user', async (request: Request, response: Response) => {
   // Validation
   // Action
-  const result = await createUser(request.body.username, request.body.password);
+  const result = await createUser(request.body);
   // Verification
   // Response
   response.send({ result });
