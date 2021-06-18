@@ -2,7 +2,11 @@ import React from 'react';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
-function Navbar(props: any) {
+interface NavbarProps {
+  title: string;
+}
+
+function Navbar(props: NavbarProps) {
   // TODO: props: pass menuItems based on logged in status of user
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

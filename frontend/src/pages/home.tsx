@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Login from '../components/login';
 import Register from '../components/register';
 import{ loginUser, registerUser } from '../services/account.service';
+import UserForm from '../interfaces/UserForm.interface';
 
 function Home() {
 
@@ -14,7 +15,7 @@ function Home() {
   // USING CONDITIONAL RENDERING
   const [login, setLogin] = useState(true);
   const [userToken, setUserToken] = useState({token: "not yet set"});
-  const [inputFields, setInputFields] = useState({} as any);
+  const [inputFields, setInputFields] = useState({} as UserForm);
 
   const sendDataToParent = (data: any) => {
     setInputFields({
@@ -46,7 +47,7 @@ function Home() {
   }
 
   const clearInputs = () => {
-    setInputFields({});
+    setInputFields({} as UserForm);
   }
 
   const switchForms = () => {
