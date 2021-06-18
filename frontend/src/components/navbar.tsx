@@ -8,7 +8,8 @@ interface NavbarProps {
 
 function Navbar(props: NavbarProps) {
   // TODO: props: pass menuItems based on logged in status of user
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null); //shouln't be doing this
+  // const [menuItems, setMenuItems] = React.useState<>();
 
   const handleOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
