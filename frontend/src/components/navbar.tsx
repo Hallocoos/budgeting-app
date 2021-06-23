@@ -1,15 +1,29 @@
 import React from 'react';
 import { Button, Menu, MenuItem } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import { useHistory } from 'react-router-dom';
 
 interface NavbarProps {
   title: string;
 }
 
 function Navbar(props: NavbarProps) {
-  // TODO: props: pass menuItems based on logged in status of user
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null); //shouln't be doing this
-  // const [menuItems, setMenuItems] = React.useState<>();
+  const history = useHistory();
+  // const toLogin = () => history.push('/login');
+  // const toRegister = () => history.push('/register');
+  const menuItems = [
+    {
+      title: 'About',
+      goToRoute: () => history.push('/about')
+    },
+    {
+      title: 'My Profile',
+      goToRoute: () => history.push('/profile')
+    }
+  ];
+
 
   const handleOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
@@ -32,7 +46,11 @@ function Navbar(props: NavbarProps) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>About</MenuItem>
+        {menuItems.map(item => (
+          <MenuItem onClick={()=>{handleClose();item.goToRoute();}} key={item.title}>
+            {item.title}
+          </MenuItem>
+        ))}
       </Menu>
     </div>
   );
