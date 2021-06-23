@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './App.css';
 import Login from './components/login';
-import Home from './pages/home';
+import Landing from './pages/landing';
 import Navbar from './components/navbar';
+import Register from './components/register';
+import Home from './pages/home';
 
 function App() {
 
@@ -14,8 +16,10 @@ function App() {
             <header data-testid="header" className="App-header">
               <Navbar title="YNABB" />
             </header>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Landing} />
             <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/home" component={Home} />
           </div>
         </Router>
   );
