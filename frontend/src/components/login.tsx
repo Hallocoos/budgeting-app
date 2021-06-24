@@ -25,17 +25,15 @@ function Login({sendDataToParent}:any) {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="sm" className={classes.root}>
-      <Grid container spacing={1} alignItems="center">
-        <Grid item xs={12} sm={12}>
-            <TextField onChange={e => inputHandler(e)} type="email" name="email" label="E-Mail" />
+    <Container maxWidth="lg" className={classes.root}>
+      <Grid container spacing={1} alignItems="center" direction="column">
+        <Grid item xs={12} lg>
+          <TextField onChange={e => inputHandler(e)} type="email" name="email" label="E-Mail" />
         </Grid>
-        <Grid item xs={12}>
-          <label>
-            <TextField onChange={e => inputHandler(e)} type="password" name="password" label="Password" />
-          </label>
+        <Grid item xs={12} lg>
+          <TextField onChange={e => inputHandler(e)} type="password" name="password" label="Password" />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={3} lg>
           <Button variant="contained" type="submit" color="secondary">Submit</Button>
         </Grid>
       </Grid>

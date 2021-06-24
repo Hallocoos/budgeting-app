@@ -7,9 +7,10 @@ import React from 'react';
 // }
 
 function Home(props: any) {
+
   return (
     <div>
-      <h1>JWT: {props.location.state.token}</h1>
+      <h1>JWT: {props.token.token}</h1>
     </div>
   )
 }

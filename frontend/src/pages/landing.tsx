@@ -4,8 +4,9 @@ import Login from '../components/login';
 import Register from '../components/register';
 import{ loginUser, registerUser } from '../services/account.service';
 import UserForm from '../interfaces/UserForm.interface';
+import { useEffect } from 'react';
 
-function Landing() {
+function Landing({dataToParent}: any) {
 
   // USING ROUTES
   const history = useHistory();
@@ -27,28 +28,24 @@ function Landing() {
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    let token: any;
-
     if (inputFields.username === undefined) {
       console.log('inputfields: ',inputFields);
-      token = await loginUser(inputFields);
+      setUserToken(await loginUser(inputFields));
     } else {
-      token = await registerUser(inputFields);
+      setUserToken(await registerUser(inputFields));
     }
+  }
 
-    // TODO: handle error
-    if (token !== undefined) {
-      setUserToken(token);
-      history.push('/home', {token: token});
-    }
-    else {
+  useEffect(()=> {
+    console.log('landing: ',userToken);
+    if (userToken.token !== null){
+      dataToParent(userToken);
+      history.push('/home');
+    } else { // TODO: handle error
       console.error("something went horribly wrong...")
       history.push('/');
     }
-    // clearInputs();
-
-    // subscribe to service? -> auth -> login
-  }
+  }, [history, dataToParent, userToken]);
 
   const clearInputs = () => {
     setInputFields({} as UserForm);
