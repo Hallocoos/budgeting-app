@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './App.css';
@@ -10,23 +10,20 @@ import Home from './pages/home';
 import Container from '@material-ui/core/Container';
 
 function App() {
-  //TODO:store jwt here
-  const [userToken, setUserToken] = useState({token: null});
 
-  const getDataFromChild = (data:any) => {
-    console.log('getdatafromchild: ',data);
-    if(data.token !== undefined)
-      setUserToken(data);
+  const getJwtFromChild = (jwt:any) => {
+    if(jwt.token !== undefined)
+      sessionStorage.setItem('token', jwt.token);
   }
 
   return (
         <Router>
           <Navbar title="YNABB" /><br/><br/>
           <Container className="App" maxWidth="lg">
-            <Route exact path="/" render={(props) => <Landing {...props} dataToParent={getDataFromChild} />} />
+            <Route exact path="/" render={(props) => <Landing {...props} jwtToParent={getJwtFromChild} />} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/home" render={(props) => <Home {...props} token={userToken} />} />
+            <Route path="/home" render={(props) => <Home {...props}  />} />
           </Container>
         </Router>
   );
