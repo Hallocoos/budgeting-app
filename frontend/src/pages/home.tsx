@@ -10,7 +10,7 @@ function Home(props: any) {
 
   return (
     <div>
-      <h1>JWT: {props.token.token}</h1>
+      <h1>JWT: {sessionStorage.getItem('token')}</h1>
     </div>
   )
 }
