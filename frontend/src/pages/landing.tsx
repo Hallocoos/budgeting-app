@@ -6,7 +6,7 @@ import{ loginUser, registerUser } from '../services/account.service';
 import UserForm from '../interfaces/UserForm.interface';
 import { useEffect } from 'react';
 
-function Landing({dataToParent}: any) {
+function Landing({jwtToParent}: any) {
 
   // USING ROUTES
   const history = useHistory();
@@ -15,6 +15,7 @@ function Landing({dataToParent}: any) {
 
   // USING CONDITIONAL RENDERING
   const [login, setLogin] = useState(true);
+  const [attempted, setAttempted] = useState(false);
   const [userToken, setUserToken] = useState({token: null});
   const [inputFields, setInputFields] = useState({} as UserForm);
 
@@ -27,25 +28,32 @@ function Landing({dataToParent}: any) {
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
+    setAttempted(true);
+    // let token;
     if (inputFields.username === undefined) {
       console.log('inputfields: ',inputFields);
+      // token = await loginUser(inputFields);
       setUserToken(await loginUser(inputFields));
     } else {
+      // token = await registerUser(inputFields);
       setUserToken(await registerUser(inputFields));
     }
+    // setUserToken(token);
   }
 
   useEffect(()=> {
-    console.log('landing: ',userToken);
     if (userToken.token !== null){
-      dataToParent(userToken);
+      jwtToParent(userToken);
       history.push('/home');
-    } else { // TODO: handle error
-      console.error("something went horribly wrong...")
-      history.push('/');
+    } else {
+      if (attempted) {// TODO: handle error properly
+        console.error("something went horribly wrong...")
+        setAttempted(false);
+        history.push('/');
+      }
     }
-  }, [history, dataToParent, userToken]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history, jwtToParent, userToken]);
 
   const clearInputs = () => {
     setInputFields({} as UserForm);
