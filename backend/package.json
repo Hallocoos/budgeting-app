@@ -8,7 +8,8 @@
   "scripts": {
     "start": "ts-node-dev src/app.ts",
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "redb": "knex migrate:rollback && knex migrate:latest && knex seed:run && npm run start"
+    "redb": "knex migrate:rollback && knex migrate:latest && knex seed:run && npm run start",
+    "test": "jest"
   },
   "dependencies": {
     "@types/body-parser": "1.17.0",
@@ -21,6 +22,7 @@
     "@types/uuid": "3.4.5",
     "bcrypt": "^5.0.0",
     "body-parser": "1.19.0",
+    "cors": "^2.8.5",
     "dotenv": "7.0.0",
     "eslint": "^7.19.0",
     "eslint-config-node": "^4.1.0",
@@ -33,17 +35,20 @@
     "http": "^0.0.1-security",
     "jsonwebtoken": "8.5.1",
     "knex": "^0.95.4",
-    "lodash": "4.17.19",
+    "lodash": "^4.17.21",
     "mysql": "^2.18.1",
-    "nodemailer": "6.4.10",
     "prettier": "^2.2.1",
+    "ts-loader": "^9.2.3",
     "ts-node": "8.9.0",
     "typescript": "3.5.3",
-    "underscore": "1.10.2",
+    "underscore": "^1.13.1",
     "uuid": "3.3.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.0",
+    "@types/jest": "^26.0.23",
+    "jest": "^27.0.4",
+    "ts-jest": "^27.0.3",
     "ts-node-dev": "^1.1.1"
   }
 }
