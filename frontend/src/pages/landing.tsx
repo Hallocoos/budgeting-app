@@ -31,14 +31,6 @@ function Landing({jwtToParent}: any) {
     event.preventDefault();
     setAttempted(true);
     const token = await formSubmitFunction(inputFields);
-    // if (inputFields.username === undefined) {
-    //   console.log('inputfields: ',inputFields);
-    //   // token = await loginUser(inputFields);
-    //   // setUserToken(await loginUser(inputFields));
-    // } else {
-    //   // token = await registerUser(inputFields);
-    //   // setUserToken(await registerUser(inputFields));
-    // }
     setUserToken(token);
   }
 
@@ -54,7 +46,7 @@ function Landing({jwtToParent}: any) {
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history, jwtToParent, userToken]);
+  }, [userToken]);
 
   useEffect(() => {
     if (login) {
