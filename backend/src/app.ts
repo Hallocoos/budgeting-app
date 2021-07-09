@@ -1,6 +1,6 @@
 import * as bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
-import express from 'express';
+import express, { request, response } from 'express';
 import { Request, Response } from 'express';
 import { info, error } from './services/logging';
 import user from './routes/UserRoutes';
@@ -10,7 +10,7 @@ import subtransaction from './routes/SubtransactionRountes';
 // import subcategory from './routes/SubcategoryRoutes';
 import collection from './routes/CollectionRoutes';
 import guest from './routes/GuestRoutes';
-import { verifyToken, Roles } from './services/jwt';
+import { verifyToken, generateToken } from './services/jwt';
 import cors from 'cors';
 
 const app = express();
@@ -39,7 +39,7 @@ function loggerMiddleware(
 }
 app.use(loggerMiddleware);
 
-app.use('/', guest, /* verifyToken(Roles.User), */user, transaction, category, subtransaction /*, subcategory*/, collection);
+app.use('/', guest, /* verifyToken(request, response, 'j'), */user, transaction, category, subtransaction /*, subcategory*/, collection);
 
 app.all('*', (request, response) => {
   response.sendStatus(404);
