@@ -18,8 +18,9 @@ function Landing({jwtToParent}: any) {
   const [attempted, setAttempted] = useState(false);
   const [userToken, setUserToken] = useState({token: null});
   const [inputFields, setInputFields] = useState({} as UserForm);
+  const [formSubmitFunction, setFormSubmitFunction] = useState(() => loginUser);
 
-  const sendDataToParent = (data: any) => {
+  const formDataFromChild = (data: any) => {
     setInputFields({
       ...inputFields,
       [data.target.name]: data.target.value
@@ -29,16 +30,8 @@ function Landing({jwtToParent}: any) {
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setAttempted(true);
-    // let token;
-    if (inputFields.username === undefined) {
-      console.log('inputfields: ',inputFields);
-      // token = await loginUser(inputFields);
-      setUserToken(await loginUser(inputFields));
-    } else {
-      // token = await registerUser(inputFields);
-      setUserToken(await registerUser(inputFields));
-    }
-    // setUserToken(token);
+    const token = await formSubmitFunction(inputFields);
+    setUserToken(token);
   }
 
   useEffect(()=> {
@@ -53,7 +46,15 @@ function Landing({jwtToParent}: any) {
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history, jwtToParent, userToken]);
+  }, [userToken]);
+
+  useEffect(() => {
+    if (login) {
+      setFormSubmitFunction(() => loginUser);
+    } else if (!login) {
+      setFormSubmitFunction(() => registerUser);
+    }
+  }, [login])
 
   const clearInputs = () => {
     setInputFields({} as UserForm);
@@ -61,12 +62,12 @@ function Landing({jwtToParent}: any) {
 
   const loginForm = <div>
                      <p>Log in:</p>
-                     <Login sendDataToParent={sendDataToParent} />
+                     <Login formDataToParent={formDataFromChild} />
                     </div>
 
   const registerForm = <div>
                         <p>Register</p>
-                        <Register sendDataToParent={sendDataToParent} />
+                        <Register formDataToParent={formDataFromChild} />
                        </div>
 
   return (

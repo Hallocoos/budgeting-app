@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Register({sendDataToParent}: any) {
+function Register({formDataToParent}: any) {
 
   const inputHandler = (e: any) => {
     // e.preventDefault();
-    sendDataToParent(e);
+    formDataToParent(e);
   }
 
   return (

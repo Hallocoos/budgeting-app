@@ -8,10 +8,10 @@ import {
   Grid,
   TextField } from '@material-ui/core';
 
-function Login({sendDataToParent}:any) {
+function Login({formDataToParent}:any) {
 
   const inputHandler = (e: any) => {
-    sendDataToParent(e);
+    formDataToParent(e);
   }
 
   const useStyles = makeStyles((theme: Theme) =>
