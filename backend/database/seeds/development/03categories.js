@@ -17,7 +17,7 @@ exports.seed = function (knex, Promise) {
     .then(async function () {
       return knex('category').insert({
         userId: 1,
-        name: 'dinner',
+        name: 'True Expenses',
         collectionId: 1,
       });
     });
