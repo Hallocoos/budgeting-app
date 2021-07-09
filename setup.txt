@@ -1,0 +1,21 @@
+https://tecadmin.net/how-to-install-nvm-on-ubuntu-20-04/
+https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-20-04
+https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql
+
+Setup .env files in /backend and /frontend
+
+Backend:
+    ACTIVEDB = "mysql"
+    DBFOLDER = "./database/"
+    MYSQL_HOSTNAME="something"
+    MYSQL_DATABASE="something"
+    MYSQL_USERNAME="something"
+    MYSQL_PASSWORD="something"
+    NODE_ENV = "development"
+    PORT=3001
+
+    SECRETKEY = 'secret'
+
+Frontend:
+    NODE_ENV = "development"
+    PORT=3000
